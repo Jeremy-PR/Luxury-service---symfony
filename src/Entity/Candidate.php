@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Repository\CandidateRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -49,9 +52,7 @@ class Candidate
     #[Assert\Length(max: 255)]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(max: 255)]
-    private ?string $profilePicture = null;
+    
 
     #[ORM\OneToOne(inversedBy: 'candidate', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -74,10 +75,35 @@ class Candidate
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    private ?Category $jobCategory = null;
+
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    private ?Expe $expe = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $passportFile = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cvFile = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $profilePicture = null;
+
+    
+
+ 
+
+  
+  
+
     public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable(), DateTimeImmutable $updatedAt = new DateTimeImmutable())
     {
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+    
+      
+ 
     }
 
     public function getId(): ?int
@@ -97,17 +123,7 @@ class Candidate
         return $this;
     }
 
-    public function getProfilePicture(): ?string
-    {
-        return $this->profilePicture;
-    }
-
-    public function setProfilePicture(?string $profilePicture): static
-    {
-        $this->profilePicture = $profilePicture;
-
-        return $this;
-    }
+  
 
     public function getUser(): ?User
     {
@@ -326,4 +342,69 @@ class Candidate
 
         return $this;
     }
+
+    public function getJobCategory(): ?Category
+    {
+        return $this->jobCategory;
+    }
+
+    public function setJobCategory(?Category $jobCategory): static
+    {
+        $this->jobCategory = $jobCategory;
+
+        return $this;
+    }
+
+    public function getExpe(): ?Expe
+    {
+        return $this->expe;
+    }
+
+    public function setExpe(?Expe $expe): static
+    {
+        $this->expe = $expe;
+
+        return $this;
+    }
+
+    public function getPassportFile(): ?string
+    {
+        return $this->passportFile;
+    }
+
+    public function setPassportFile(string $passportFile): static
+    {
+        $this->passportFile = $passportFile;
+
+        return $this;
+    }
+
+    public function getCvFile(): ?string
+    {
+        return $this->cvFile;
+    }
+
+    public function setCvFile(string $cvFile): static
+    {
+        $this->cvFile = $cvFile;
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(string $profilePicture): static
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+
+
+
+
 }

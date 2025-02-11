@@ -130,26 +130,27 @@
 				class="row">
 
 				{# Profil picture #}
+		{# Profil Pic #}
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="file-field input-field" style="margin-top: 32px;">
 						<div class="btn btn-lg primary waves-effect waves-light">
 							<span>
 								<i class="material-icons">insert_photo</i>
 								Photo</span>
-							{# <input id="photo" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="photo" type="file"> #}
 							{{ form_widget(form.profilePictureFile) }}
-							{{ form_errors(form.profilePictureFile) }}
+
 						</div>
 
-						<img src="{{ asset('uploads/profile_pictures/' ~ candidate.profilePicture ) }}" alt="">
-
-						<div class="existing-file">
-							<a href="#!" target="_blank">
-								<i class="material-icons">&#xE24D;</i>
-								profil_picture.jpg</a>
-						</div>
+						{# {% if candidate.profilePicture %}
+							<div id="existing-file-photo" class="existing-file">
+								<a href="{{ asset('uploads/profile-pictures/' ~ candidate.profilePicture) }}" target="_blank">
+									<i class="material-icons">&#xE24D;</i>
+									{{ originalProfilePicture }}
+								</a>
+							</div>
+						{% endif %} #}
 						<div class="file-path-wrapper">
-							<input class="file-path validate" type="text" placeholder="Upload your ID photo" readonly>
+							<input id="file-path-photo" class="file-path validate" type="text" placeholder="Upload your ID photo" readonly>
 						</div>
 					</div>
 				</div>
@@ -167,7 +168,7 @@
 							</div>
 						</div>
 
-
+	                    {# Nationality #}
 						<div class="col-xs-12 col-sm-6">
 							<div class="input-field">
 								{{ form_widget(form.nationality) }}
@@ -176,6 +177,7 @@
 							</div>
 						</div>
 
+						{# birthDate #}
 						<div class="col-xs-12 col-sm-6">
 							<div class="input-field">
 								{{ form_widget(form.birthDate) }}
@@ -184,7 +186,7 @@
 							</div>
 						</div>
 
-
+                        {# birthPlace #}
 						<div class="col-xs-12 col-sm-6">
 							<div class="input-field">
 								{{ form_widget(form.birthPlace) }}
@@ -192,77 +194,91 @@
 								{{ form_errors(form.birthPlace) }}
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
+
+
 			<div class="row mt-40">
 				<h3 class="text-extrabold">Your professional profile</h3>
 				<div class="col-xs-12 col-sm-6">
 
 					<div class="card card-panel passport">
+							{# Passport #}
 						<div class="file-field input-field">
 							<div class="btn btn-lg primary waves-effect waves-light">
 								<span>
 									<i class="material-icons">&#xE24D;</i>
-									Passport</span>
-								<input id="passport" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="passport" type="file">
+									Passport
+								</span>
+								{{ form_widget(form.passportFile) }}
 							</div>
-							<div class="existing-file">
-								<a href="#!" target="_blank">
-									<i class="material-icons">&#xE24D;</i>
-									passeport.jpg</a>
-							</div>
+
+							{% if candidate.passport %}
+								<div id="existing-file-passport" class="existing-file">
+									<a href="{{ asset('uploads/passport/' ~ candidate.passport) }}" target="_blank">
+										<i class="material-icons">&#xE24D;</i>
+										{{ originalPassport }}
+									</a>
+								</div>
+							{% endif %}
+
 							<div class="file-path-wrapper">
-								<input class="file-path validate" type="text" placeholder="Upload your passport" readonly>
+								<input id="file-path-passport" class="file-path validate" type="text" placeholder="Upload your passport" readonly>
 							</div>
 						</div>
 
+						{# CV #}
 						<div class="file-field input-field">
 							<div class="btn btn-lg primary waves-effect waves-light">
 								<span>
 									<i class="material-icons">&#xE24D;</i>
-									CV</span>
-								<input id="cv" size="20000000" accept=".pdf,.jpg,.doc,.docx,.png,.gif" name="cv" type="file">
+									CV
+								</span>
+								{{ form_widget(form.cvFile) }}
 							</div>
 
-							<div class="existing-file">
-								<a href="#!" target="_blank">
-									<i class="material-icons">&#xE24D;</i>
-									CV.pdf</a>
-							</div>
+							{% if candidate.cv %}
+								<div id="existing-file-cv" class="existing-file">
+									<a href="{{ asset('uploads/curriculum-vitae/' ~ candidate.cv) }}" target="_blank">
+										<i class="material-icons">&#xE24D;</i>
+										{{ originalCv }}
+									</a>
+								</div>
+							{% endif %}
+
 							<div class="file-path-wrapper">
-								<input class="file-path validate" type="text" placeholder="Upload your Curriculum Vitae" readonly>
+								<input id="file-path-cv" class="file-path validate" type="text" placeholder="Upload your Curriculum Vitae" readonly>
 							</div>
 						</div>
 
 					</div>
 				</div>
+
+				<div
 
 				<div class="col-xs-12 col-sm-6">
+					{# Job Category #}
 					<div class="col-xs-12 col-sm-12">
 						<div class="input-field" style="margin-top: 5px;">
-							<select id="job_sector" name="job_sector[]" multiple data-placeholder="Type in or Select job sector you would be interested in.">
-								<option value="">Choose an option...</option>
-								<option value="">job sector</option>
-							</select>
-							<label for="job_sector" class="active">Interest in job sector</label>
+							{{ form_widget(form.jobCategory) }}
+							{{ form_label(form.jobCategory) }}
+							{{ form_errors(form.jobCategory) }}
 						</div>
 					</div>
+
+                    {# Experience #}
 					<div class="col-xs-12 col-sm-12">
 						<div class="input-field">
-							<select id="experience" name="experience">
-								<option value="">Choose</option>
-								<option value="3m">0 - 6 month</option>
-								<option value="6m">6 month - 1 year</option>
-								<option value="1y">1 - 2 years</option>
-								<option value="2y">2+ years</option>
-								<option value="5y" selected="selected">5+ years</option>
-								<option value="10y">10+ years</option>
-							</select>
-							<label for="experience" class="active">Experience</label>
+							{{ form_widget(form.expe) }}
+							{{ form_label(form.expe) }}
+							{{ form_errors(form.expe) }}
 						</div>
 					</div>
 				</div>
+
+				{# Description #}
 				<div class="col-xs-12 col-sm-12">
 					<div class="input-field">
 						{{ form_widget(form.description) }}

@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Candidate;
 use App\Entity\Gender;
+use App\Entity\Category;
 use App\Entity\User;
+use App\Entity\Expe;
 use DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -54,26 +56,7 @@ class CandidateType extends AbstractType
                 ],
                 'placeholder' => 'Choose an option...',
             ])
-            ->add('profilePictureFile', FileType::class,[
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '20M',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/gif',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid Image document',
-                    ])
-                ],
-                'attr' => [
-                    'accept' => '.jpg,.jpeg,.png,.gif',
-                    'id' => 'photo',
-                ]
-            ])
-
+          
             ->add('currentLocation', TextType::class, [
                 'required' => false,
                 'attr' => [
@@ -140,8 +123,97 @@ class CandidateType extends AbstractType
                 ],
             ])
 
+            ->add('jobCategory', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => 'Choose an option...',
+                'label' => 'Interest in job sector',
+                'attr' => [
+                    'id' => 'job_sector',
+                    'data-placeholder' => 'Type in or Select job sector you would be interested in.',
+                ],
+                'label_attr' => [
+                    'class' => 'active',
+                ],
+            ])
 
-
+            ->add('expe', EntityType::class, [
+                'class' => Expe::class,
+                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => 'Choose an option...',
+                'label' => 'Experience',
+                'attr' => [
+                    'id' => 'experience',
+                ],
+                'label_attr' => [
+                    'class' => 'active',
+                ],
+            ])
+            ->add('passportFile', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'accept' => '.pdf,.jpg,.doc,.docx,.png,.jpeg',
+                    'size' => 200000000,
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                            'application/pdf',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
+            ])
+            ->add('cvFile', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'accept' => '.pdf,.jpg,.doc,.docx,.png,.jpeg',
+                    'size' => 200000000,
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                            'application/pdf',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
+            ])
+            ->add('profilePictureFile', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'accept' => '.jpg,.png,.gif,.jpeg',
+                    'size' => 200000000,
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
+            ])
 
             ->addEventListener(FormEvents::POST_SUBMIT, $this->setUpdatedAt(...))
         ;
