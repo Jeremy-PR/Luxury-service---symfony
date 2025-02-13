@@ -137,11 +137,11 @@
 							<span>
 								<i class="material-icons">insert_photo</i>
 								Photo</span>
-							{{ form_widget(form.profilePictureFile) }}
+							{{ form_widget(form.profilePicture) }}
 
 						</div>
 
-						{# {% if candidate.profilePicture %}
+						{# {% if candidate.profilePictureFile %}
 							<div id="existing-file-photo" class="existing-file">
 								<a href="{{ asset('uploads/profile-pictures/' ~ candidate.profilePicture) }}" target="_blank">
 									<i class="material-icons">&#xE24D;</i>
@@ -212,14 +212,14 @@
 									<i class="material-icons">&#xE24D;</i>
 									Passport
 								</span>
-								{{ form_widget(form.passportFile) }}
+								{{ form_widget(form.passport) }}
 							</div>
 
-							{% if candidate.passport %}
+							{% if candidate.passportFile %}
 								<div id="existing-file-passport" class="existing-file">
-									<a href="{{ asset('uploads/passport/' ~ candidate.passport) }}" target="_blank">
+									<a href="{{ asset('uploads/passport/' ~ candidate.passportFile) }}" target="_blank">
 										<i class="material-icons">&#xE24D;</i>
-										{{ originalPassport }}
+										{{ originalPassportFile }}
 									</a>
 								</div>
 							{% endif %}
@@ -236,14 +236,14 @@
 									<i class="material-icons">&#xE24D;</i>
 									CV
 								</span>
-								{{ form_widget(form.cvFile) }}
+								{{ form_widget(form.cv) }}
 							</div>
 
-							{% if candidate.cv %}
+							{% if candidate.cvFile %}
 								<div id="existing-file-cv" class="existing-file">
-									<a href="{{ asset('uploads/curriculum-vitae/' ~ candidate.cv) }}" target="_blank">
+									<a href="{{ asset('uploads/curriculum-vitae/' ~ candidate.cvFile) }}" target="_blank">
 										<i class="material-icons">&#xE24D;</i>
-										{{ originalCv }}
+										{{ originalCvFile }}
 									</a>
 								</div>
 							{% endif %}
@@ -321,7 +321,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-4">
-					<a href="#!" class="btn btn-block btn-lg border primary waves-effect waves-light">
+					<a href="{{ path('app_home') }}" class="btn btn-block btn-lg border primary waves-effect waves-light">
 						<i class="fa fa-long-arrow-left"></i>
 						Back home</a>
 				</div>

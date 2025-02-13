@@ -88,8 +88,9 @@ class Candidate
     private ?string $cvFile = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $profilePicture = null;
+    private ?string $profilePictureFile = null;
 
+   
     
 
  
@@ -393,15 +394,16 @@ class Candidate
 
     public function getProfilePicture(): ?string
     {
-        return $this->profilePicture;
+        return $this->profilePictureFile;
     }
 
     public function setProfilePicture(string $profilePicture): static
     {
-        $this->profilePicture = $profilePicture;
+        $this->profilePictureFile = $profilePicture;
 
         return $this;
     }
+
 
 
 

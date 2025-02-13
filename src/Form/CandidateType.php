@@ -151,7 +151,7 @@ class CandidateType extends AbstractType
                     'class' => 'active',
                 ],
             ])
-            ->add('passportFile', FileType::class, [
+            ->add('passport', FileType::class, [
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
@@ -173,7 +173,7 @@ class CandidateType extends AbstractType
                     ])
                 ],
             ])
-            ->add('cvFile', FileType::class, [
+            ->add('cv', FileType::class, [
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
@@ -195,7 +195,7 @@ class CandidateType extends AbstractType
                     ])
                 ],
             ])
-            ->add('profilePictureFile', FileType::class, [
+            ->add('profilePicture', FileType::class, [
                 'mapped' => false,
                 'required' => false,
                 'attr' => [

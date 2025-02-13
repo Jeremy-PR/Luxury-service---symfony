@@ -38,10 +38,10 @@ final class ProfileController extends AbstractController
 
         if ($formCandidate->isSubmitted() && $formCandidate->isValid()) {
             /** @var UploadedFile|null $profilePictureFile */
-            $profilePictureFile = $formCandidate->get('profilePictureFile')->getData();
+            $profilePictureFile = $formCandidate->get('profilePicture')->getData();
 
             /** @var UploadedFile|null $passportFile */
-            $passportFile = $formCandidate->get('passportFile')->getData(); // Remplace passport par passportFile
+            $passportFile = $formCandidate->get('passport')->getData(); 
 
             /** @var UploadedFile|null $cvFile */
             $cvFile = $formCandidate->get('cv')->getData();
@@ -55,13 +55,13 @@ final class ProfileController extends AbstractController
             // Traiter l'upload du passeport
             if ($passportFile) {
                 $passportFileName = $fileUploader->upload($passportFile, $candidate, 'passportFile', 'passport-files');
-                $candidate->setPassportFile($passportFileName); // Assurez-vous que cette méthode existe dans Candidate
+                $candidate->setPassportFile($passportFileName); 
             }
 
             // Traiter l'upload du CV
             if ($cvFile) {
-                $cvFileName = $fileUploader->upload($cvFile, $candidate, 'cv', 'cv-files');
-                $candidate->setCvFile($cvFileName); // Assurez-vous que cette méthode existe dans Candidate
+                $cvFileName = $fileUploader->upload($cvFile, $candidate, 'cvFile', 'cv-files');
+                $candidate->setCvFile($cvFileName); 
             }
 
             $entityManager->persist($candidate);
@@ -74,6 +74,8 @@ final class ProfileController extends AbstractController
             'form' => $formCandidate->createView(),
             'candidate' => $candidate,
             'originalProfilePicture' => $candidate->getProfilePicture() ?? null,
+            'originalPassportFile' => $candidate->getPassportFile() ?? null,
+            'originalCvFile' => $candidate->getCvFile() ?? null,
         ]);
     }
 }

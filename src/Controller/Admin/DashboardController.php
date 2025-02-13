@@ -6,6 +6,7 @@ use App\Entity\Gender;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Expe;
+use App\Entity\Professional;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -68,6 +69,9 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Expes');
         yield MenuItem::linkToCrud('Expes', 'fa fa-sign-language', Expe::class);
+
+        yield MenuItem::section('Professionals');
+        yield MenuItem::linkToCrud('Professionnals', 'fa fa-sign-language', Professional::class);
 
         
     }

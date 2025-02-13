@@ -1,4 +1,15 @@
 {% extends 'base.html.twig' %}
+{% block leafleft %}
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+
+	 <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script> 
+{% endblock %}
+
 
 {% block body %}
 
@@ -21,7 +32,8 @@
 	</section>
 
 	<!-- Page Content-->
-	<form method="POST" action="#!" accept-charset="UTF-8" id="formContact" class="light-gray-bg">
+	{# <form method="POST" action="#!" accept-charset="UTF-8" id="formContact" class="light-gray-bg"> #}
+	{{ form_start(form, {'attr': {'id': 'formContact', 'class': 'light-gray-bg', 'accept-charset': 'UTF-8'}}) }}
 		<input name="_token" type="hidden" value="">
 		<input name="job_id" type="hidden" value="">
 		<section class="section-padding">
@@ -36,36 +48,52 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="input-field">
-									<input required="required" name="firstname" type="text">
-									<label for="firstname">First name</label>
+									{# <input required="required" name="firstname" type="text">
+									<label for="firstname">First name</label> #}
+									{{ form_widget(form.firstName) }}
+									{{ form_label(form.firstName) }}
+									{{ form_errors(form.firstName) }}
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="input-field">
-									<input required="required" name="lastname" type="text">
-									<label for="lastname">Last name</label>
+									{# <input required="required" name="lastname" type="text">
+									<label for="lastname">Last name</label> #}
+									{{ form_widget(form.lastName) }}
+									{{ form_label(form.lastName) }}
+									{{ form_errors(form.lastName) }}
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="input-field">
-									<input required="required" name="email" type="email">
-									<label for="email">Email</label>
+									{# <input required="required" name="email" type="email">
+									<label for="email">Email</label> #}
+										{{ form_widget(form.email) }}
+									{{ form_label(form.email) }}
+									{{ form_errors(form.email) }}
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="input-field">
-									<input required="required" name="phone" type="tel">
-									<label for="phone">Phone Number</label>
+									{# <input required="required" name="phone" type="tel">
+									<label for="phone">Phone Number</label> #}
+									{{ form_widget(form.phone) }}
+									{{ form_label(form.phone) }}
+									{{ form_errors(form.phone) }}
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<div class="input-field">
-									<textarea class="materialize-textarea" required="required" name="message" cols="50" rows="10"></textarea>
-									<label for="message">Message</label>
+									{# <textarea class="materialize-textarea" required="required" name="message" cols="50" rows="10"></textarea>
+									<label for="message">Message</label> #}
+
+											{{ form_widget(form.message) }}
+									{{ form_label(form.message) }}
+									{{ form_errors(form.message) }}
 								</div>
 							</div>
 						</div>
@@ -104,7 +132,43 @@
 				</div>
 			</div>
 		</section>
-	</form>
-	<div id="myMap" class="height-350">Gmap here</div>
+	{# </form> #}
+	{{ form_end(form) }}
+
+	<div id="myMap" class="height-350">
+	
+	
+	
+	
+	
+	</div>
+  <script>
+        var map = L.map('myMap').setView([45.4397, 4.3872], 13); // Coordonnées de Saint-Étienne
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Coordonnées du Musée de la Mine à Saint-Étienne
+        var muséeLatLng = [45.4367, 4.3967];  // Coordonnées à ajuster
+
+        // Marqueur pour le Musée de la Mine
+        var marker = L.marker(muséeLatLng).addTo(map);
+
+        // Popup du marqueur
+        marker.bindPopup("<b>Musée de la Mine</b><br>Découvrez l'histoire de l'industrie minière à Saint-Étienne.").openPopup();
+
+
+		// Coordonnées du Stade Geoffroy-Guichard à Saint-Étienne
+var geoffroyLatLng = [45.46092, 4.38952];  // Coordonnées du Stade Geoffroy-Guichard
+
+// Marqueur pour le Stade Geoffroy-Guichard
+var marker = L.marker(geoffroyLatLng).addTo(map);
+
+// Popup du marqueur
+marker.bindPopup("<b>Stade Geoffroy-Guichard</b><br>Le stade mythique de Saint-Étienne, à la Pierre-Mauroy.").openPopup();
+
+    </script>
+
 
 {% endblock %}
