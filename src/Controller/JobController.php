@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\JobOffer;
 use App\Entity\User;
-use App\Form\JobOfferType; // Assure-toi que tu as ce formulaire
+use App\Form\JobOfferType; 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,8 @@ class JobController extends AbstractController
     }
 
 
-    #[Route('/job/{slug}', name: 'app_job_show')]
+    // ici
+    #[Route('/job/show/{slug}', name: 'app_job_show')]
     public function show(string $slug): Response
     {
       
@@ -35,11 +36,11 @@ class JobController extends AbstractController
     }
 
     // Route pour permettre à un professionnel de créer une offre
-    #[Route('/job/create', name: 'app_create_job')]
+    #[Route('/job/create', name:'app_job_create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
 
-
+        // dd('test');
         // Vérifie que l'utilisateur est un professionnel
         if (!$this->isGranted('ROLE_PROFESSIONAL')) {
             throw new AccessDeniedException('Accès réservé aux professionnels.');
@@ -56,21 +57,22 @@ class JobController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Lier l'offre au professionnel connecté (l'utilisateur courant)
+            /** @var User */
             $user = $this->getUser();
             if ($user === null) {
                 throw new \LogicException('User not found.');
             }
-            $jobOffer->setUser((string) $user);
+            $jobOffer->setProfessional($user->getProfessional());
 
             // Persister l'offre d'emploi dans la base de données
             $entityManager->persist($jobOffer);
             $entityManager->flush();
 
             // Redirige vers le tableau de bord professionnel (ou autre page)
-            // return $this->redirectToRoute('professional_dashboard');  // Assure-toi que la route 'professional_dashboard' existe
+            return $this->redirectToRoute('app_professional_dashboard');  // Assure-toi que la route 'professional_dashboard' existe
         }
         
-        
+     
         // Si le formulaire n'est pas soumis ou valide, on affiche le formulaire
         return $this->render('job/create.html.twig', [
             'form' => $form->createView(),

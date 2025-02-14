@@ -33,7 +33,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Candidate $candidate = null; // Le profil candidat (si l'utilisateur est un candidat)
 
     #[ORM\Column(type: 'string', length: 20)] 
-    private ?string $type = ''; // Le type de l'utilisateur, par défaut 'candidate'
+    private ?string $type = '';
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Professional $professional = null;
+
+ 
+
+
 
     // Méthode pour obtenir l'ID de l'utilisateur
     public function getId(): ?int
@@ -169,4 +176,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->type === 'professional'; // Si le type est 'professional', l'utilisateur est un professionnel
     }
+
+    public function getProfessional(): ?Professional
+    {
+        return $this->professional;
+    }
+
+    public function setProfessional(Professional $professional): static
+    {
+        // set the owning side of the relation if necessary
+        if ($professional->getUser() !== $this) {
+            $professional->setUser($this);
+        }
+
+        $this->professional = $professional;
+
+        return $this;
+    }
+
+  
+
 }
