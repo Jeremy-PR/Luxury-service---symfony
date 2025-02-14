@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Professionnel{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue dans votre espace professionnel</h1>
+    
+    <p>Vous pouvez créer et gérer vos offres d'emploi ici.</p>
+
+    <a href="{{ path('app_job_create') }}" class="btn btn-success">Créer une offre d'emploi</a>
+{% endblock %}
