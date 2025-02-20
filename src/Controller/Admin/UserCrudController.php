@@ -31,6 +31,7 @@ class UserCrudController extends AbstractCrudController
                     'Utilisateur' => 'ROLE_USER',
                     'Professionnel' => 'ROLE_PROFESSIONAL',
                     'Admin' => 'ROLE_ADMIN',
+                    'Candidate' => 'ROLE_CANDIDATE',
                 ])
                 ->allowMultipleChoices()
                 ->renderExpanded()

@@ -6,6 +6,7 @@ use App\Entity\Professional;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
+use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Events;
 
 #[AsEntityListener(event: Events::preUpdate, entity: User::class)]
@@ -19,7 +20,7 @@ class UserRoleListener
         }
     }
 
-    public function prePersist(User $user, LifecycleEventArgs $event): void
+    public function prePersist(User $user, PrePersistEventArgs $event): void
     {
         $this->updateUserType($user, $event->getObjectManager());
     }

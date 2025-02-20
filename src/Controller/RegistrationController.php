@@ -43,6 +43,7 @@ class RegistrationController extends AbstractController
             // Hache le mot de passe de l'utilisateur
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
+
             // Création d'un profil candidat (par défaut)
             $candidate = new Candidate();
             $candidate->setUser($user);
