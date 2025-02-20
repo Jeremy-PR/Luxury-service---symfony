@@ -59,8 +59,14 @@ class JobController extends AbstractController
             // Lier l'offre au professionnel connecté (l'utilisateur courant)
             /** @var User */
             $user = $this->getUser();
+          
+
             if ($user === null) {
                 throw new \LogicException('User not found.');
+            }
+
+            if ($user->getProfessional() === null) {
+                throw new \LogicException('L\'utilisateur n\'est pas associé à un profil professionnel.');
             }
             $jobOffer->setProfessional($user->getProfessional());
 

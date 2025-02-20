@@ -29,7 +29,6 @@ class Professional
     private Collection $jobOffers;
 
     #[ORM\OneToOne(inversedBy: 'professional', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     public function __construct()
